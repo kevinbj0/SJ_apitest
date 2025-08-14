@@ -57,9 +57,10 @@
             errorDiv.style.display = 'block';
         }
 
+        let accessToken = '';
    
         // API를 호출하여 토큰을 가져오고 LWC를 로드하는 로직
-        async function getToken(){
+        function getToken(){
             fetch(myApiUrl, { method: 'POST' }) // 프록시 서버에 POST 요청을 보냅니다.
                 .then(response => {
                     if (!response.ok) {
@@ -92,7 +93,7 @@
             return accessToken;
         }
         
-        async function getChatSummary(access_token){
+        function getChatSummary(access_token){
             fetch(salesforceApiUrl, {
                 method: 'POST',
                 headers: {
@@ -120,12 +121,12 @@
                 displayError(`Salesforce API 호출 중 오류가 발생했습니다: ${error.message}`);
             })
         }
-
-        async function getMain(){
-            let accessToken = await getToken(); 
-            await getChatSummary(accessToken);
+        
+        function getMain(){
+            accessToken = getToken(); 
+            getChatSummary(accessToken);
         }
-        console.log("테스트4");
+        console.log("테스트5");
         getMain();
     </script>
 </body>
