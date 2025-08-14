@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce LWC Loader</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #agentforceChatbotDivId {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        #errorMessage {
+            color: red;
+            background-color: #ffebee;
+            padding: 1rem;
+            border-radius: 8px;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 챗봇이 렌더링될 컨테이너 -->
+    <div id="agentforceChatbotDivId"></div>
+    <!-- 에러 메시지를 표시할 컨테이너 -->
+    <div id="errorMessage" style="display:none;"></div>
+
+    <script src="https://connect-flow-8014--ps.sandbox.lightning.force.com/lightning/lightning.out.js"></script>
+    <script>
+        // 💡 수정된 부분: Vercel URL 대신 새로운 Heroku 앱 URL로 변경합니다.
+        const myApiUrl = 'https://pyheroku-d21d18e4f257.herokuapp.com/api/getToken';
+
+        const salesforceUrl = 'https://connect-flow-8014--ps.sandbox.lightning.force.com/';
+        const appName = 'c:zzChatBot_Aura';
+        const componentName = 'c:sj_Chatbot';
+
+        const lwcAttributes = {
+            isDarkMode: false,
+            chatbot_width: '350px',
+            chatbot_height: '600px'
+        };
+
+        // 에러 메시지를 화면에 표시하는 함수
+        function displayError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        // API를 호출하여 토큰을 가져오고 LWC를 로드하는 로직
+        fetch(myApiUrl, { method: 'POST' }) // 프록시 서버에 POST 요청을 보냅니다.
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(`백엔드 API 에러 (Status: ${response.status}): ${JSON.stringify(errorData)}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                const accessToken = data.access_token;
+                if (!accessToken) {
+                    throw new Error("응답 데이터에 access_token이 없습니다.");
+                }
+            
+                console.log("Heroku 프록시를 통해 안전하게 토큰을 받았습니다:", accessToken);
+            })
+            .catch(error => {
+                console.error('전체 프로세스 호출 실패:', error);
+                displayError(`오류가 발생했습니다: ${error.message}`);
+            });
+    </script>
+</body>
+</html>
