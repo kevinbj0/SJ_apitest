@@ -94,6 +94,8 @@
         }
         
         function getChatSummary(access_token){
+            console.log("토큰")
+            console.log(access_token)
             fetch(salesforceApiUrl, {
                 method: 'POST',
                 headers: {
@@ -126,7 +128,7 @@
             accessToken = getToken(); 
             getChatSummary(accessToken);
         }
-        console.log("테스트6");
+        console.log("테스트7");
         getMain();
     </script>
 </body>
