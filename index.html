@@ -57,7 +57,12 @@
             errorDiv.style.display = 'block';
         }
 
+        const salesforceApiUrl = 'https://connect-flow-8014--ps.sandbox.my.salesforce.com/services/apexrest/summarizeChat/';
         let accessToken = '';
+        const chatData = {
+            chatlog: "안녕"      
+        };
+        
    
         // API를 호출하여 토큰을 가져오고 LWC를 로드하는 로직
         function getToken(){
@@ -82,11 +87,6 @@
                     console.error('전체 프로세스 호출 실패3:', error);
                     displayError(`오류가 발생했습니다: ${error.message}`);
                 });
-
-            const salesforceApiUrl = 'https://connect-flow-8014--ps.sandbox.my.salesforce.com/services/apexrest/summarizeChat/';
-            const chatData = {
-                chatlog: "안녕"      
-            };
             console.log("테스트4");
             console.log(accessToken);
 
@@ -126,7 +126,7 @@
             accessToken = getToken(); 
             getChatSummary(accessToken);
         }
-        console.log("테스트5");
+        console.log("테스트6");
         getMain();
     </script>
 </body>
