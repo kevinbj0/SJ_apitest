@@ -57,7 +57,7 @@
             errorDiv.style.display = 'block';
         }
 
-        const accessToken = ''
+        let accessToken = ''
         // API를 호출하여 토큰을 가져오고 LWC를 로드하는 로직
         fetch(myApiUrl, { method: 'POST' }) // 프록시 서버에 POST 요청을 보냅니다.
             .then(response => {
