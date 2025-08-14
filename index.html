@@ -93,9 +93,9 @@
             return accessToken;
         }
         
-        async function getChatSummary(access_token){
+        async function getChatSummary(accessToken){
             console.log("토큰")
-            console.log(access_token)
+            console.log(accessToken)
             fetch(salesforceApiUrl, {
                 method: 'POST',
                 headers: {
