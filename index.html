@@ -92,11 +92,7 @@
             return accessToken;
         }
         
-        async function getChatSummary(){
-            console.log("입장");
-            let accessToken = await getToken();
-
-            <!-- setTimeout(() => {} , 5000); -->
+        async function getChatSummary(access_token){
             fetch(salesforceApiUrl, {
                 method: 'POST',
                 headers: {
@@ -124,7 +120,12 @@
                 displayError(`Salesforce API 호출 중 오류가 발생했습니다: ${error.message}`);
             })
         }
-        getChatSummary();
+
+        async function getMain(){
+            let accessToken = await getToken(); 
+            await getChatSummary(accessToken);
+        }
+
     </script>
 </body>
 </html>
