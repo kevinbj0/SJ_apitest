@@ -75,40 +75,6 @@
                 }
             
                 console.log("Heroku 프록시를 통해 안전하게 토큰을 받았습니다:", accessToken);
-
-                const salesforceApiUrl = 'https://connect-flow-8014--ps.sandbox.my.salesforce.com/services/apexrest/summarizeChat/';
-                const chatData = {
-                    chatlog: "안녕"      
-                };
-                console.log("테스트2");
-                console.log(accessToken);
-
-                fetch(salesforceApiUrl, {
-                    method: 'POST',
-                    headers: {
-                        // Bearer 뒤에 공백이 중요합니다.
-                        'Authorization': `Bearer ${accessToken}`,
-                        'Content-Type': 'application/json'
-                    },
-                    // JavaScript 객체를 JSON 문자열로 변환합니다.
-                    body: JSON.stringify(chatData)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        // API 호출이 실패하면 에러를 발생시킵니다.
-                        throw new Error(`Salesforce API 에러: ${response.status}`);
-                    }
-                    return response.json(); // 응답을 JSON 형태로 파싱합니다.
-                })
-                .then(result => {
-                    // 성공적인 응답을 콘솔에 출력합니다.
-                    console.log('Salesforce API 응답:', result);
-                })
-                .catch(error => {
-                    // API 호출 중 발생한 에러를 처리합니다.
-                    console.error('Salesforce API 호출 실패:', error);
-                    displayError(`Salesforce API 호출 중 오류가 발생했습니다: ${error.message}`);
-                });
             })
             .catch(error => {
                 console.error('전체 프로세스 호출 실패:', error);
