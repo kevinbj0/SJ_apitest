@@ -65,8 +65,8 @@
         
    
         // API를 호출하여 토큰을 가져오고 LWC를 로드하는 로직
-        function getToken(){
-            fetch(myApiUrl, { method: 'POST' }) // 프록시 서버에 POST 요청을 보냅니다.
+        async function getToken(){
+            await fetch(myApiUrl, { method: 'POST' }) // 프록시 서버에 POST 요청을 보냅니다.
                 .then(response => {
                     if (!response.ok) {
                         return response.json().then(errorData => {
@@ -93,7 +93,7 @@
             return accessToken;
         }
         
-        function getChatSummary(access_token){
+        async function getChatSummary(access_token){
             console.log("토큰")
             console.log(access_token)
             fetch(salesforceApiUrl, {
@@ -124,11 +124,11 @@
             })
         }
         
-        function getMain(){
-            accessToken = getToken(); 
-            getChatSummary(accessToken);
+        async function getMain(){
+            accessToken = await getToken(); 
+            await getChatSummary(accessToken);
         }
-        console.log("테스트7");
+        console.log("테스트8");
         getMain();
     </script>
 </body>
